@@ -31,7 +31,7 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() createUserDto: CreateUserDto): Promise<UserResponseDto> {
-    const user = await this.commandBus.execute(
+    const user: User = await this.commandBus.execute(
       new CreateUserCommand(createUserDto),
     );
     return this.toResponse(user);
@@ -39,13 +39,13 @@ export class UsersController {
 
   @Get()
   async findAll(): Promise<UserResponseDto[]> {
-    const users = await this.queryBus.execute(new GetAllUsersQuery());
+    const users: User[] = await this.queryBus.execute(new GetAllUsersQuery());
     return users.map((user: User) => this.toResponse(user));
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserResponseDto> {
-    const user = await this.queryBus.execute(new GetUserQuery(id));
+    const user: User = await this.queryBus.execute(new GetUserQuery(id));
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -57,7 +57,7 @@ export class UsersController {
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<UserResponseDto> {
-    const user = await this.commandBus.execute(
+    const user: User = await this.commandBus.execute(
       new UpdateUserCommand(id, updateUserDto),
     );
     return this.toResponse(user);
