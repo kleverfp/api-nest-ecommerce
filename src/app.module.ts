@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
-
-import { UsersModule } from './modules/users/users.module';
 import { PrismaModule } from './shared/infra/database/prisma.module';
 import { JwtAuthModule } from './shared/infra/auth/jwt-auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -28,5 +29,7 @@ import { JwtAuthModule } from './shared/infra/auth/jwt-auth.module';
     JwtAuthModule,
     UsersModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

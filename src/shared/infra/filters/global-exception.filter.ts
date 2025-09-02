@@ -7,9 +7,8 @@ import {
   Logger,
 } from '@nestjs/common';
 import { FastifyReply } from 'fastify';
-
-import { DomainError } from '../../utils/domain-error';
-import { ValidationError } from '../../utils/validation-error';
+import { DomainError } from 'src/shared/utils/domain-error';
+import { ValidationError } from 'src/shared/utils/validation-error';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
